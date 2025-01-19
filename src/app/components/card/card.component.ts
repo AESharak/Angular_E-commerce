@@ -1,15 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/products.interface';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-card',
+  standalone: true,
+  imports: [CommonModule, RatingModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  @Input({ required: true }) product!: Product;
+  @Input() product!: Product;
+  @Output() addToCartEvent = new EventEmitter<Product>();
 
   addToCart() {
-    console.log('Added to cart:', this.product);
+    if (this.product.stock > 0) {
+      this.addToCartEvent.emit(this.product);
+    }
   }
 }

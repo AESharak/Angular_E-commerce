@@ -1,8 +1,9 @@
-.card-description {
+.line-clamp {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  height: 3rem;
-  line-height: 1.5rem;
+  text-overflow: ellipsis;
+  max-height: 3em;
+  line-height: 1.5em;
 }

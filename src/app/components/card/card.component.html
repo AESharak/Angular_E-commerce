@@ -19,10 +19,18 @@
     <div class="d-flex justify-content-between align-items-start mb-2">
       <h5 class="card-title text-truncate">{{ product.title }}</h5>
     </div>
-    <p class="card-text card-description mb-2">{{ product.description }}</p>
-    <p class="card-text fs-5 fw-bold mt-auto">${{ product.price }}</p>
+    <p class="card-text line-clamp mb-2">{{ product.description }}</p>
+    <div class="d-flex justify-content-between align-items-center mt-2">
+      <p-rating
+        [ngModel]="product.rating"
+        [readonly]="true"
+        [cancel]="false"
+        [style]="{ color: '#FFD700' }"
+      ></p-rating>
+      <p class="card-text fs-5 fw-bold mb-0">${{ product.price }}</p>
+    </div>
     <button
-      class="btn btn-dark"
+      class="btn btn-dark mt-3"
       [disabled]="product.stock === 0"
       (click)="addToCart()"
     >
