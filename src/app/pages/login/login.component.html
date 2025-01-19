@@ -1,1 +1,76 @@
-<p>login works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-header bg-white py-3">
+          <h3 class="text-center m-0">Welcome Back</h3>
+        </div>
+        <div class="card-body p-4">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                [class.is-invalid]="
+                  loginForm.get('email')?.invalid &&
+                  loginForm.get('email')?.touched
+                "
+              />
+              @if (loginForm.get('email')?.errors?.['required'] &&
+              loginForm.get('email')?.touched) {
+              <div class="invalid-feedback">Email is required</div>
+              } @if (loginForm.get('email')?.errors?.['email'] &&
+              loginForm.get('email')?.touched) {
+              <div class="invalid-feedback">Please enter a valid email</div>
+              }
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  class="form-control"
+                  formControlName="password"
+                  [class.is-invalid]="
+                    loginForm.get('password')?.invalid &&
+                    loginForm.get('password')?.touched
+                  "
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="showPassword = !showPassword"
+                >
+                  <i
+                    class="bi"
+                    [class.bi-eye]="!showPassword"
+                    [class.bi-eye-slash]="showPassword"
+                  ></i>
+                </button>
+              </div>
+              @if (loginForm.get('password')?.errors?.['required'] &&
+              loginForm.get('password')?.touched) {
+              <div class="invalid-feedback">Password is required</div>
+              }
+            </div>
+            <button
+              type="submit"
+              class="btn btn-dark w-100 py-2"
+              [disabled]="loginForm.invalid || isLoading"
+            >
+              @if (isLoading) {
+              <span class="spinner-border spinner-border-sm me-2"></span>
+              } Login
+            </button>
+          </form>
+          <p class="text-center mt-4 mb-0">
+            Don't have an account?
+            <a routerLink="/register" class="text-dark fw-bold">Register</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
