@@ -1,7 +1,4 @@
-<div
-  class="card h-100 shadow-sm position-relative"
-  (click)="goToDetails($event)"
->
+<div class="card h-100 shadow-sm position-relative">
   @if (product.stock > 0) {
   <span class="badge bg-success position-absolute top-0 start-0 m-2 z-3"
     >In Stock</span
@@ -35,7 +32,7 @@
     <button
       class="btn btn-dark mt-3"
       [disabled]="product.stock === 0"
-      (click)="addToCart($event)"
+      (click)="addToCart()"
     >
       Add to Cart
     </button>

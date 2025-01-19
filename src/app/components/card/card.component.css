@@ -7,11 +7,3 @@
   max-height: 3em;
   line-height: 1.5em;
 }
-
-.card {
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.card:hover {
-  transform: translateY(-5px);
-}
