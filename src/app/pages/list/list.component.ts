@@ -1,11 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CardComponent } from '../../components/card/card.component';
+import { Product } from '../../models/products.interface';
 
 @Component({
   selector: 'app-list',
-  imports: [],
+  imports: [CommonModule, CardComponent],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css'
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
+  products: Product[] = [];
 
+  async ngOnInit() {
+    try {
+      const response = await fetch('products.json');
+      const data = await response.json();
+      console.log(data);
+      this.products = data.products;
+    } catch (error) {
+      console.error('Error loading products:', error);
+    }
+  }
 }
