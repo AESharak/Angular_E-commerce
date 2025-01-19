@@ -1,1 +1,51 @@
-<p>details works!</p>
+@if (product) {
+<div class="container py-5">
+  <div class="row">
+    <!-- Image Column -->
+    <div class="col-md-6 mb-4">
+      <div class="card border-0">
+        <img
+          [src]="product.images[0]"
+          class="img-fluid product-image"
+          alt="product image"
+        />
+      </div>
+    </div>
+
+    <!-- Details Column -->
+    <div class="col-md-6">
+      <h2 class="mb-3">{{ product.title }}</h2>
+      @if (product.stock > 0) {
+      <span class="badge bg-success mb-3">In Stock</span>
+      } @else {
+      <span class="badge bg-danger mb-3">Out of Stock</span>
+      }
+      <p class="lead mb-4">{{ product.description }}</p>
+
+      <div class="d-flex align-items-center mb-4">
+        <p-rating [ngModel]="product.rating" [readonly]="true"></p-rating>
+        <span class="ms-2">({{ product.rating }})</span>
+      </div>
+
+      <h3 class="mb-4">${{ product.price }}</h3>
+
+      <div class="d-grid gap-2">
+        <button
+          class="btn btn-dark btn-lg"
+          [disabled]="product.stock === 0"
+          (click)="buyNow()"
+        >
+          Buy Now
+        </button>
+        <button
+          class="btn btn-outline-dark btn-lg"
+          [disabled]="product.stock === 0"
+          (click)="addToCart()"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+}
