@@ -1,11 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RatingModule } from 'primeng/rating';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from '../../models/products.interface';
 
 @Component({
   selector: 'app-details',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, RatingModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './details.component.html',
-  styleUrl: './details.component.css'
+  styleUrls: ['./details.component.css'],
 })
-export class DetailsComponent {
+export class DetailsComponent implements OnInit {
+  product: Product | undefined;
+  isLoading = true;
 
+  constructor(private route: ActivatedRoute) {}
+
+  async ngOnInit() {
+    try {
+      const id = this.route.snapshot.params['id'];
+      const response = await fetch('products.json');
+      const data = await response.json();
+      this.product = data.products.find((p: Product) => p.id === Number(id));
+      this.isLoading = false;
+    } catch (error) {
+      console.error('Error loading product:', error);
+      this.isLoading = false;
+    }
+  }
+
+  addToCart() {
+    console.log('Added to cart:', this.product);
+  }
+
+  buyNow() {
+    console.log('Buy now:', this.product);
+  }
 }

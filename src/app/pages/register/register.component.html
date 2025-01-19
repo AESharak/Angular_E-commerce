@@ -44,28 +44,9 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Password</label>
-              <div class="input-group">
-                <input
-                  [type]="showPassword ? 'text' : 'password'"
-                  class="form-control"
-                  formControlName="password"
-                  [class.is-invalid]="
-                    registerForm.get('password')?.invalid &&
-                    registerForm.get('password')?.touched
-                  "
-                />
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  (click)="showPassword = !showPassword"
-                >
-                  <i
-                    class="bi"
-                    [class.bi-eye]="!showPassword"
-                    [class.bi-eye-slash]="showPassword"
-                  ></i>
-                </button>
-              </div>
+              <app-password-input
+                [control]="$any(registerForm.get('password'))"
+              ></app-password-input>
               @if (registerForm.get('password')?.errors?.['required'] &&
               registerForm.get('password')?.touched) {
               <div class="invalid-feedback">Password is required</div>
@@ -73,15 +54,9 @@
             </div>
             <div class="mb-4">
               <label class="form-label">Confirm Password</label>
-              <input
-                type="password"
-                class="form-control"
-                formControlName="confirmPassword"
-                [class.is-invalid]="
-                  registerForm.get('confirmPassword')?.invalid &&
-                  registerForm.get('confirmPassword')?.touched
-                "
-              />
+              <app-password-input
+                [control]="$any(registerForm.get('confirmPassword'))"
+              ></app-password-input>
               @if (registerForm.get('confirmPassword')?.errors?.['required'] &&
               registerForm.get('confirmPassword')?.touched) {
               <div class="invalid-feedback">Please confirm your password</div>
