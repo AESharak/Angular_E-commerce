@@ -6,9 +6,9 @@ import { PasswordInputComponent } from '../../components/password-input/password
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   isLoading = false;
@@ -31,7 +31,10 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     this.submitted = true;
-    if (form.valid && !this.validatePassword(this.loginData.password).length) {
+    if (
+      form.valid &&
+      this.validatePassword(this.loginData.password).length === 0
+    ) {
       this.isLoading = true;
       console.log('Form submitted:', this.loginData);
     }

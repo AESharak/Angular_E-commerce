@@ -38,18 +38,15 @@
                 [(ngModel)]="loginData.password"
                 #password="ngModel"
                 required
-                (input)="validatePassword(loginData.password)"
                 [class.is-invalid]="
                   (password.invalid && submitted) ||
                   (password.touched &&
-                    (password.invalid ||
-                      validatePassword(loginData.password).length > 0))
+                    validatePassword(loginData.password).length > 0)
                 "
               />
               <div class="invalid-feedback">
                 @if (password.errors?.['required']) { Password is required }
-                @else { @if (loginData.password &&
-                validatePassword(loginData.password).length) {
+                @else if (validatePassword(loginData.password).length > 0) {
                 <div>Password must include:</div>
                 <ul class="mb-0">
                   @for (error of validatePassword(loginData.password); track
@@ -57,7 +54,7 @@
                   <li>{{ error }}</li>
                   }
                 </ul>
-                } }
+                }
               </div>
             </div>
 

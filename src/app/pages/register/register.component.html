@@ -8,21 +8,24 @@
         <div class="card-body p-4">
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <label class="form-label">Full Name</label>
+              <label class="form-label">Username</label>
               <input
                 type="text"
                 class="form-control"
-                formControlName="name"
+                formControlName="username"
                 [class.is-invalid]="
-                  registerForm.get('name')?.invalid &&
-                  registerForm.get('name')?.touched
+                  registerForm.get('username')?.invalid &&
+                  registerForm.get('username')?.touched
                 "
               />
-              @if (registerForm.get('name')?.errors?.['required'] &&
-              registerForm.get('name')?.touched) {
-              <div class="invalid-feedback">Name is required</div>
-              }
+              <div class="invalid-feedback">
+                @if (registerForm.get('username')?.errors?.['required']) {
+                Username is required } @else if
+                (registerForm.get('username')?.errors?.['pattern']) { Username
+                cannot contain spaces }
+              </div>
             </div>
+
             <div class="mb-3">
               <label class="form-label">Email Address</label>
               <input
@@ -34,34 +37,53 @@
                   registerForm.get('email')?.touched
                 "
               />
-              @if (registerForm.get('email')?.errors?.['required'] &&
-              registerForm.get('email')?.touched) {
-              <div class="invalid-feedback">Email is required</div>
-              } @if (registerForm.get('email')?.errors?.['email'] &&
-              registerForm.get('email')?.touched) {
-              <div class="invalid-feedback">Please enter a valid email</div>
-              }
+              <div class="invalid-feedback">
+                @if (registerForm.get('email')?.errors?.['required']) { Email is
+                required } @else if
+                (registerForm.get('email')?.errors?.['email']) { Please enter a
+                valid email }
+              </div>
             </div>
+
             <div class="mb-3">
               <label class="form-label">Password</label>
               <app-password-input
                 [control]="$any(registerForm.get('password'))"
               ></app-password-input>
-              @if (registerForm.get('password')?.errors?.['required'] &&
+              @if (registerForm.get('password')?.invalid &&
               registerForm.get('password')?.touched) {
-              <div class="invalid-feedback">Password is required</div>
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('password')?.errors?.['required']) {
+                Password is required } @else if
+                (registerForm.get('password')?.errors?.['pattern']) { Password
+                must be at least 8 characters and contain:
+                <ul class="mb-0">
+                  <li>One lowercase letter</li>
+                  <li>One uppercase letter</li>
+                  <li>One number</li>
+                  <li>One special character (&#64;$!%*?&#123;&#125;)</li>
+                </ul>
+                }
+              </div>
               }
             </div>
+
             <div class="mb-4">
               <label class="form-label">Confirm Password</label>
               <app-password-input
                 [control]="$any(registerForm.get('confirmPassword'))"
               ></app-password-input>
-              @if (registerForm.get('confirmPassword')?.errors?.['required'] &&
-              registerForm.get('confirmPassword')?.touched) {
-              <div class="invalid-feedback">Please confirm your password</div>
+              @if (registerForm.get('confirmPassword')?.touched ||
+              registerForm.errors?.['passwordMismatch']) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('confirmPassword')?.errors?.['required'])
+                { Please confirm your password } @else if
+                (registerForm.errors?.['passwordMismatch']) { Passwords do not
+                match }
+              </div>
               }
             </div>
+
             <button
               type="submit"
               class="btn btn-dark w-100 py-2"
@@ -72,6 +94,7 @@
               } Register
             </button>
           </form>
+
           <p class="text-center mt-4 mb-0">
             Already have an account?
             <a routerLink="/login" class="text-dark fw-bold">Login</a>
