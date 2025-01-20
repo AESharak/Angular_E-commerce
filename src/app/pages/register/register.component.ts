@@ -12,7 +12,6 @@ import { PasswordInputComponent } from '../../components/password-input/password
 
 @Component({
   selector: 'app-register',
-  standalone: true,
   imports: [ReactiveFormsModule, RouterLink, PasswordInputComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],

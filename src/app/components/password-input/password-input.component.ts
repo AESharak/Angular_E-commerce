@@ -4,7 +4,6 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-password-input',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="input-group">

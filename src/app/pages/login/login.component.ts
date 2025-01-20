@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { PasswordInputComponent } from '../../components/password-input/password-input.component';
 
 @Component({
   selector: 'app-login',

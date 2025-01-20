@@ -7,7 +7,6 @@ import { Product } from '../../models/products.interface';
 
 @Component({
   selector: 'app-details',
-  standalone: true,
   imports: [CommonModule, RatingModule, FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './details.component.html',
@@ -22,7 +21,7 @@ export class DetailsComponent implements OnInit {
   async ngOnInit() {
     try {
       const id = this.route.snapshot.params['id'];
-      const response = await fetch('products.json');
+      const response = await fetch('https://dummyjson.com/products');
       const data = await response.json();
       this.product = data.products.find((p: Product) => p.id === Number(id));
       this.isLoading = false;
