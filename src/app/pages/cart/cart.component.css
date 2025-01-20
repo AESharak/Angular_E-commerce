@@ -1,0 +1,8 @@
+.img-fluid {
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.btn-link {
+  text-decoration: none;
+}

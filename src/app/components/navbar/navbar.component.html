@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <!-- Left side -->
     <a
       class="navbar-brand"
       routerLink="/"
@@ -9,7 +8,6 @@
       >ProductApp</a
     >
 
-    <!-- Responsive toggle button -->
     <button
       class="navbar-toggler"
       type="button"
@@ -19,35 +17,39 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navigation links -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link align-items-center"
             routerLink="/register"
             routerLinkActive="text-warning"
-            [routerLinkActiveOptions]="{ exact: true }"
             >Register</a
           >
         </li>
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link align-items-center"
             routerLink="/login"
             routerLinkActive="text-warning"
-            [routerLinkActiveOptions]="{ exact: true }"
             >Login</a
           >
         </li>
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="nav-link d-flex align-items-center position-relative"
             routerLink="/cart"
             routerLinkActive="text-warning"
-            [routerLinkActiveOptions]="{ exact: true }"
           >
-            <i class="bi bi-cart"></i> Cart
+            <i class="bi bi-cart fs-5"></i>
+            @if (cartItemsCount > 0) {
+            <span
+              class="position-absolute top-n1 start-100 translate-middle badge rounded-pill bg-danger"
+              style="font-size: 0.7rem"
+            >
+              {{ cartItemsCount }}
+            </span>
+            }
           </a>
         </li>
       </ul>

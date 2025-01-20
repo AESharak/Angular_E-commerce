@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/products.interface';
 
 @Component({
@@ -16,7 +17,10 @@ export class DetailsComponent implements OnInit {
   product: Product | undefined;
   isLoading = true;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cartService: CartService
+  ) {}
 
   async ngOnInit() {
     try {
@@ -32,10 +36,15 @@ export class DetailsComponent implements OnInit {
   }
 
   addToCart() {
-    console.log('Added to cart:', this.product);
+    if (this.product) {
+      this.cartService.addToCart(this.product);
+    }
   }
 
   buyNow() {
-    console.log('Buy now:', this.product);
+    if (this.product) {
+      this.cartService.addToCart(this.product);
+      // Additional buy now logic...
+    }
   }
 }

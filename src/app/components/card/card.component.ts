@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Product } from '../../models/products.interface';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-card',
@@ -15,9 +15,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 })
 export class CardComponent {
   @Input() product!: Product;
-  @Output() addToCartEvent = new EventEmitter<Product>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
   goToDetails(event: Event) {
     if (!(event.target as HTMLElement).closest('button')) {
@@ -27,8 +26,6 @@ export class CardComponent {
 
   addToCart(event: Event) {
     event.stopPropagation();
-    if (this.product.stock > 0) {
-      this.addToCartEvent.emit(this.product);
-    }
+    this.cartService.addToCart(this.product);
   }
 }
